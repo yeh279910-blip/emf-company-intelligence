@@ -1,0 +1,974 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Noah (Asia) Limited | EMF Company Intelligence</title>
+  <style>
+    :root {
+      --ink: #18212f;
+      --muted: #617085;
+      --line: #d9e1ea;
+      --paper: #f6f8fb;
+      --panel: #ffffff;
+      --accent: #0d7c86;
+      --accent-2: #d94f38;
+      --soft: #e9f5f6;
+      --warn: #fff2df;
+      --ok: #e8f4ea;
+      --shadow: 0 18px 45px rgba(24, 33, 47, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      line-height: 1.45;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .app {
+      min-height: 100vh;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 14px 28px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(14px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 36px;
+      height: 36px;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--ink);
+      color: white;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .brand-text strong,
+    .brand-text span {
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .brand-text strong {
+      font-size: 15px;
+    }
+
+    .brand-text span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .nav-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .icon-link,
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .button {
+      gap: 8px;
+      padding: 0 12px;
+    }
+
+    .icon-link {
+      width: 38px;
+      font-size: 12px;
+    }
+
+    .button.primary {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: white;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+      gap: 26px;
+      padding: 30px 28px 18px;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+
+    .hero-copy {
+      align-self: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 14px;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 780px;
+      font-size: clamp(34px, 5vw, 66px);
+      line-height: 0.98;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      max-width: 760px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 0 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: white;
+      color: #314158;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .hero-media {
+      min-height: 360px;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      background: #111;
+    }
+
+    .hero-media img {
+      width: 100%;
+      height: 100%;
+      min-height: 360px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: 330px minmax(0, 1fr);
+      gap: 22px;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 14px 28px 40px;
+      align-items: start;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 78px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .panel,
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: 0 8px 24px rgba(24, 33, 47, 0.04);
+    }
+
+    .panel {
+      padding: 18px;
+    }
+
+    .section {
+      margin-bottom: 22px;
+    }
+
+    .section:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin: 0 0 12px;
+    }
+
+    h2,
+    h3 {
+      margin: 0;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      font-size: 21px;
+    }
+
+    h3 {
+      font-size: 15px;
+    }
+
+    .tiny {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .kv {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+    }
+
+    .kv div {
+      display: grid;
+      gap: 3px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #edf1f5;
+    }
+
+    .kv div:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .kv dt {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 750;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .kv dd {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 650;
+      overflow-wrap: anywhere;
+    }
+
+    .score {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .score-value {
+      display: grid;
+      place-items: center;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--ok);
+      color: #1f7b3d;
+      font-size: 22px;
+      font-weight: 850;
+    }
+
+    .meter {
+      height: 8px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #e8edf3;
+    }
+
+    .meter span {
+      display: block;
+      width: 80%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), #54a66f);
+    }
+
+    .main-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .wide {
+      grid-column: 1 / -1;
+    }
+
+    .card {
+      padding: 18px;
+    }
+
+    .service-grid,
+    .project-grid,
+    .mapping-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .service-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .service {
+      padding: 12px;
+      border-radius: 8px;
+      background: #f8fafc;
+      border: 1px solid #e7edf3;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .project-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .project {
+      min-height: 116px;
+      padding: 12px;
+      border-radius: 8px;
+      background: #fbfcfd;
+      border: 1px solid #e7edf3;
+    }
+
+    .project strong,
+    .mapping strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+
+    .source-link {
+      display: inline-block;
+      margin-top: 10px;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .project span,
+    .mapping span,
+    .stage li,
+    .contact-meta {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .contact {
+      display: grid;
+      gap: 12px;
+    }
+
+    .contact-head {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .avatar {
+      display: grid;
+      flex: 0 0 auto;
+      width: 48px;
+      height: 48px;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--soft);
+      color: var(--accent);
+      font-weight: 850;
+    }
+
+    .contact h3 {
+      font-size: 17px;
+    }
+
+    .contact-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .mini-button {
+      min-height: 34px;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfd;
+      font-size: 12px;
+      font-weight: 750;
+      text-align: center;
+      overflow-wrap: anywhere;
+    }
+
+    .stages {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .stage {
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: white;
+    }
+
+    .stage:nth-child(1) {
+      background: var(--warn);
+    }
+
+    .stage:nth-child(2) {
+      background: var(--soft);
+    }
+
+    .stage:nth-child(3) {
+      background: var(--ok);
+    }
+
+    .stage ul {
+      display: grid;
+      gap: 7px;
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+
+    .mapping-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .mapping {
+      padding: 14px;
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      background: #f8fafc;
+    }
+
+    .fit-comparison {
+      display: grid;
+      gap: 10px;
+    }
+
+    .fit-row {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+    }
+
+    .fit-row > div {
+      padding: 14px;
+    }
+
+    .fit-row > div:first-child {
+      border-right: 1px solid var(--line);
+      background: #fbfcfd;
+    }
+
+    .fit-row strong,
+    .fit-row span {
+      display: block;
+    }
+
+    .fit-row strong {
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .fit-row span {
+      margin-bottom: 6px;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .fit-row p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .evidence-note {
+      margin: 0 0 14px;
+      padding: 12px 14px;
+      border: 1px solid #b9dadd;
+      border-radius: 8px;
+      background: var(--soft);
+      color: #31545a;
+      font-size: 13px;
+    }
+
+    .outreach {
+      padding: 18px;
+      border-radius: 8px;
+      background: #263446;
+      color: white;
+    }
+
+    .outreach p {
+      margin: 8px 0 0;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 14px;
+    }
+
+    .sources {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .source {
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .workspace,
+      .two-col,
+      .stages {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+      }
+
+      .hero-media,
+      .hero-media img {
+        min-height: 280px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 16px;
+      }
+
+      .nav-actions {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .hero,
+      .workspace {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .service-grid,
+      .project-grid,
+      .mapping-grid,
+      .fit-row,
+      .contact-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .fit-row > div:first-child {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      h1 {
+        font-size: 34px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="brand" href="#">
+        <span class="brand-mark">N</span>
+        <span class="brand-text">
+          <strong>Noah (Asia) Limited</strong>
+          <span>EMF Company Intelligence / Internal CRM View</span>
+        </span>
+      </a>
+      <nav class="nav-actions" aria-label="External links">
+        <a class="button" href="#why-weexpand">Why WeExpand</a>
+        <a class="icon-link" href="https://www.noahasia.com/" title="Website">WEB</a>
+        <a class="icon-link" href="http://www.linkedin.com/company/noah-asia-limited" title="Company LinkedIn">IN</a>
+        <a class="button primary" href="mailto:olivia@noahasia.com">Email Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">High Priority Prospect · Marketing Agency · Event Services</p>
+          <h1>Noah (Asia) Limited</h1>
+          <p class="subtitle">
+            Hong Kong marketing and event services agency focused on event management, exhibitions,
+            roadshows, retail display, mall decoration, promoter management, and design production.
+          </p>
+          <div class="hero-meta">
+            <span class="pill">Hong Kong</span>
+            <span class="pill">Founded 2010</span>
+            <span class="pill">11-50 employees</span>
+            <span class="pill">Markets: HK + Mainland China</span>
+            <span class="pill">Why WeExpand analysis added</span>
+          </div>
+        </div>
+        <figure class="hero-media" aria-label="Noah event production visual">
+          <img src="https://static.wixstatic.com/media/d5dc35_058d4ca9a02b42f699bd191895e51812~mv2.jpg/v1/crop/x_0,y_121,w_4240,h_2668/fill/w_920,h_578,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/d5dc35_058d4ca9a02b42f699bd191895e51812~mv2.jpg" alt="Event production scene from Noah Asia website">
+        </figure>
+      </section>
+
+      <section class="workspace">
+        <aside class="sidebar">
+          <div class="panel">
+            <div class="section-title">
+              <h2>Company Snapshot</h2>
+            </div>
+            <dl class="kv">
+              <div>
+                <dt>Company Name</dt>
+                <dd>Noah (Asia) Limited / 萊亞(亞洲)有限公司</dd>
+              </div>
+              <div>
+                <dt>Website</dt>
+                <dd><a href="https://noahasia.com">noahasia.com</a></dd>
+              </div>
+              <div>
+                <dt>Company LinkedIn</dt>
+                <dd><a href="http://www.linkedin.com/company/noah-asia-limited">noah-asia-limited</a></dd>
+              </div>
+              <div>
+                <dt>Facebook / IG / X</dt>
+                <dd>Not found from official website or public search</dd>
+              </div>
+              <div>
+                <dt>Industry</dt>
+                <dd>Events Services / Marketing & Advertising</dd>
+              </div>
+              <div>
+                <dt>Location</dt>
+                <dd>Unit 526, Tower B, Focal Industrial Centre, Hung Hom, Kowloon</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="panel">
+            <div class="section-title">
+              <h2>AI Fit</h2>
+              <span class="tiny">WeExpand view</span>
+            </div>
+            <div class="score">
+              <div>
+                <h3>Solution Fit Score</h3>
+                <p class="tiny">Strong fit for outreach, content, reply handling, and CRM handover automation.</p>
+                <div class="meter" aria-label="AI fit score 4 out of 5"><span></span></div>
+              </div>
+              <div class="score-value">4/5</div>
+            </div>
+          </div>
+
+          <div class="panel contact">
+            <div class="section-title">
+              <h2>Contact</h2>
+              <span class="pill">Sales</span>
+            </div>
+            <div class="contact-head">
+              <div class="avatar">OL</div>
+              <div>
+                <h3>Olivia Lee</h3>
+                <div class="contact-meta">Business Development Director · Director seniority</div>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <a class="mini-button" href="mailto:olivia@noahasia.com">olivia@noahasia.com</a>
+              <a class="mini-button" href="http://www.linkedin.com/in/olivia-lee-98002211">Personal LinkedIn</a>
+            </div>
+          </div>
+        </aside>
+
+        <div class="main-grid">
+          <div class="two-col">
+            <section class="card">
+              <div class="section-title">
+                <h2>What They Do</h2>
+              </div>
+              <div class="service-grid">
+                <div class="service">Event Management</div>
+                <div class="service">Exhibition</div>
+                <div class="service">Mall Decoration</div>
+                <div class="service">Event / Promotion Helpers</div>
+                <div class="service">Virtual Tour</div>
+                <div class="service">Retail Display</div>
+                <div class="service">Design & Production</div>
+                <div class="service">Storage Service</div>
+              </div>
+            </section>
+
+            <section class="card">
+              <div class="section-title">
+                <h2>Target Clients</h2>
+              </div>
+              <dl class="kv">
+                <div>
+                  <dt>High Fit</dt>
+                  <dd>Corporate brands, retail brands, electronics brands, shopping malls</dd>
+                </div>
+                <div>
+                  <dt>Medium Fit</dt>
+                  <dd>Event organizers, public sector partners, VIP event clients</dd>
+                </div>
+                <div>
+                  <dt>Likely Buying Trigger</dt>
+                  <dd>Need to win more projects while reducing repetitive proposal, email, and follow-up work</dd>
+                </div>
+              </dl>
+            </section>
+          </div>
+
+          <section class="card wide">
+            <div class="section-title">
+              <h2>Event / Activity Portfolio Signals</h2>
+              <span class="tiny">Examples from Noah public website, LinkedIn signals, and EMF activity interpretation</span>
+            </div>
+            <div class="project-grid">
+              <div class="project">
+                <strong>Hermes CNY Promotion</strong>
+                <span>Activity type: roadshow / brand activation. Objective: support seasonal brand visibility, customer engagement, and promoter coordination.</span>
+                <a class="source-link" href="https://www.noahasia.com/">Source link: Noah official website, OUR WORK section</a>
+              </div>
+              <div class="project">
+                <strong>Lenovo / HP / Logitech</strong>
+                <span>Activity type: technology promotion, exhibition, and retail/event display. Objective: product exposure, on-site experience, and lead/customer engagement.</span>
+                <a class="source-link" href="https://www.noahasia.com/">Source link: Noah official website, OUR WORK section</a>
+              </div>
+              <div class="project">
+                <strong>Towngas x HKSTP</strong>
+                <span>Activity type: corporate signing ceremony. Objective: stakeholder communication, official event execution, and professional guest experience.</span>
+                <a class="source-link" href="https://hk.linkedin.com/company/noah-asia-limited">Source link: Noah LinkedIn updates</a>
+              </div>
+              <div class="project">
+                <strong>VIP Dinner</strong>
+                <span>Activity type: corporate / VIP hospitality event. Objective: relationship building, audience engagement, KOL/expert sharing, and premium guest experience.</span>
+                <a class="source-link" href="https://hk.linkedin.com/company/noah-asia-limited">Source link: Noah LinkedIn updates</a>
+              </div>
+              <div class="project">
+                <strong>Xiaomi Pop-up Store</strong>
+                <span>Activity type: pop-up store design and setup. Objective: retail experience, product interaction, and brand activation.</span>
+                <a class="source-link" href="https://www.noahasia.com/">Source link: Noah official website, OUR WORK section</a>
+              </div>
+              <div class="project">
+                <strong>DR-Max Book Fair</strong>
+                <span>Activity type: public-facing exhibition support. Objective: audience interaction, booth/display execution, and event-day engagement.</span>
+                <a class="source-link" href="https://www.noahasia.com/">Source link: Noah official website, OUR WORK section</a>
+              </div>
+            </div>
+          </section>
+
+          <section class="card wide">
+            <div class="section-title">
+              <h2>EMF Workflow Pain Points</h2>
+              <span class="tiny">Potential gaps based on Noah's event, exhibition, roadshow, and brand activation work</span>
+            </div>
+            <div class="stages">
+              <div class="stage">
+                <h3>Pre-event</h3>
+                <ul>
+                  <li>Client research may be scattered across websites, LinkedIn, past project notes, and email threads.</li>
+                  <li>Proposal, quotation, and creative copy preparation can become time-consuming when every brand activation needs a different angle.</li>
+                  <li>Promoter, supplier, and venue coordination may create repeated status-checking work before the event.</li>
+                  <li>New brand outreach may be less effective if emails are too generic for different sectors such as retail, electronics, malls, and corporate clients.</li>
+                </ul>
+              </div>
+              <div class="stage">
+                <h3>During-event</h3>
+                <ul>
+                  <li>On-site client requests and urgent updates can be hard to summarize quickly for the sales, project, and execution teams.</li>
+                  <li>Guest reception, media arrangements, and repeated enquiries may consume experienced staff time.</li>
+                  <li>Live event content may not be converted into usable social posts, recap copy, or follow-up material quickly enough.</li>
+                  <li>Internal handover may be incomplete if key client comments stay in chat messages or personal notes.</li>
+                </ul>
+              </div>
+              <div class="stage">
+                <h3>Post-event</h3>
+                <ul>
+                  <li>Follow-up emails may be delayed because teams need to first organize photos, client feedback, and event results.</li>
+                  <li>Feedback and reporting can require manual collection from multiple sources.</li>
+                  <li>Photos, videos, and event notes may not be fully repurposed into case studies or business development content.</li>
+                  <li>Future sales conversations may lack a structured summary of client interests, objections, and next opportunities.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section class="card wide">
+            <div class="section-title">
+              <h2>WeExpand Solution Mapping</h2>
+              <span class="tiny">Grounded in WeExpand's confirmed focus on AI agents for business process automation, Sales & Marketing, and business growth</span>
+            </div>
+            <div class="mapping-grid">
+              <div class="mapping">
+                <strong>Personalized Sales Outreach</strong>
+                <span>Recommended application: generate sector-specific first drafts for brand, retail, mall, and corporate event prospects, then let Noah's team review before sending.</span>
+              </div>
+              <div class="mapping">
+                <strong>Reply Classification & Next Actions</strong>
+                <span>Recommended application: classify replies by interest level and suggest follow-up actions, while keeping final client communication under team control.</span>
+              </div>
+              <div class="mapping">
+                <strong>Content Customisation</strong>
+                <span>Recommended application: turn event cases into draft LinkedIn posts, EDM copy, proposal snippets, and campaign recaps customized by client sector.</span>
+              </div>
+              <div class="mapping">
+                <strong>CRM / Handover Summaries</strong>
+                <span>Recommended application: summarize client background, project context, pain points, and next-step suggestions for internal sales and project handover.</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="card wide" id="why-weexpand">
+            <div class="section-title">
+              <h2>Why WeExpand Fits Noah</h2>
+              <span class="tiny">Evidence-based comparison with traditional manual workflow</span>
+            </div>
+            <p class="evidence-note">
+              WeExpand's website states that it designs and deploys AI agents for business process automation, specializing in Sales & Marketing for business growth. The items below are therefore written as recommended applications for Noah's EMF workflow, not as unverified claims about a fixed product feature list.
+            </p>
+            <div class="fit-comparison">
+              <div class="fit-row">
+                <div>
+                  <strong>Time Efficiency</strong>
+                  <span>Traditional approach</span>
+                  <p>Sales and project teams manually research clients, write proposals, customize emails, and follow up after each event.</p>
+                </div>
+                <div>
+                  <span>With WeExpand</span>
+                  <p>AI agents can support automatic first drafts for personalized outreach, event recap content, reply summaries, and follow-up suggestions based on company and client context.</p>
+                </div>
+              </div>
+              <div class="fit-row">
+                <div>
+                  <strong>Resource Allocation</strong>
+                  <span>Traditional approach</span>
+                  <p>Experienced staff spend time on repetitive writing, client sorting, and CRM updates instead of creative planning and on-site execution.</p>
+                </div>
+                <div>
+                  <span>With WeExpand</span>
+                  <p>Noah can shift human resources toward higher-value work such as client strategy, event experience design, vendor coordination, and relationship building.</p>
+                </div>
+              </div>
+              <div class="fit-row">
+                <div>
+                  <strong>Business Fit</strong>
+                  <span>Traditional approach</span>
+                  <p>One-size-fits-all emails or generic marketing messages may not match different client types such as retail brands, technology brands, malls, and corporate clients.</p>
+                </div>
+                <div>
+                  <span>With WeExpand</span>
+                  <p>Content can be customized by sector, event type, client role, and project objective, making outreach more relevant than a generic mass email approach.</p>
+                </div>
+              </div>
+              <div class="fit-row">
+                <div>
+                  <strong>Ease of Use</strong>
+                  <span>Traditional approach</span>
+                  <p>Teams may need to switch between email, spreadsheets, CRM notes, social posts, and proposal documents.</p>
+                </div>
+                <div>
+                  <span>With WeExpand</span>
+                  <p>AI agents can support a more structured EMF workflow: research, draft, classify replies, prepare handover notes, and suggest follow-up actions.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="outreach wide">
+            <h2>Suggested First Outreach Angle</h2>
+            <p>
+              Noah works across event management, exhibitions, roadshows, retail displays and brand activations.
+              These projects may involve heavy pre-event client communication, proposal preparation, promotion
+              content, and post-event follow-up. Based on WeExpand's confirmed focus on AI agents for business
+              process automation in Sales & Marketing, the most relevant starting point would be AI-supported
+              personalized outreach, reply classification, customized content drafts, and internal handover summaries.
+            </p>
+          </section>
+
+          <section class="card wide">
+            <div class="section-title">
+              <h2>Sources</h2>
+            </div>
+            <div class="sources">
+              <a class="source" href="https://www.noahasia.com/">Noah official website</a>
+              <a class="source" href="https://hk.linkedin.com/company/noah-asia-limited">Company LinkedIn</a>
+              <a class="source" href="https://sourcing.hktdc.com/en/Supplier-Store-Directory/Noah-Asia-Limited/1X05JJ69">HKTDC Sourcing</a>
+              <a class="source" href="https://www.weexpand.co/">WeExpand official website</a>
+              <span class="source">WeExpand contact export: Olivia Lee</span>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
